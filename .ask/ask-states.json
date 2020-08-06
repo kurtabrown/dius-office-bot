@@ -1,0 +1,30 @@
+{
+  "askcliStatesVersion": "2020-03-31",
+  "profiles": {
+    "default": {
+      "skillInfrastructure": {
+        "@ask-cli/lambda-deployer": {
+          "deployState": {
+            "default": {
+              "iamRole": "arn:aws:iam::654873882834:role/ask-lambda-dius-office-bot-1596609093164",
+              "lambda": {
+                "arn": "arn:aws:lambda:ap-southeast-2:654873882834:function:ask-dius-office-bot-default-default-1596609104302",
+                "lastModified": "2020-08-06T07:42:17.346+0000",
+                "revisionId": "6d7d53ca-e331-41d7-8a25-26d318031aa8"
+              }
+            }
+          }
+        }
+      },
+      "skillId": "amzn1.ask.skill.41872f15-ccdd-4e97-983b-385a351643e9",
+      "skillMetadata": {
+        "lastDeployHash": "H9eslsGlVvW7e/FDoRzx9F9bVcU="
+      },
+      "code": {
+        "default": {
+          "lastDeployHash": "KSX7+gnrNDTSm27rQKJtQ66rXjw="
+        }
+      }
+    }
+  }
+}
