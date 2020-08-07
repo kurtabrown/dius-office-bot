@@ -29,7 +29,8 @@ dbHelper.prototype.getVisitor = (firstname) => {
     return new Promise((resolve, reject) => {
         const params = {
             TableName: tableName,
-            KeyConditionExpression: "#firstname = :firstname",
+            ProjectionExpression: "#officelocation, firstname",
+            FilterExpression: "#firstname = :firstname",
             ExpressionAttributeNames: {
                 "#firstname": "firstname"
             },
@@ -37,7 +38,7 @@ dbHelper.prototype.getVisitor = (firstname) => {
                 ":firstname": firstname
             }
         }
-        docClient.query(params, (err, data) => {
+        docClient.scan(params, (err, data) => {
             if (err) {
                 console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
                 return reject(JSON.stringify(err, null, 2))
@@ -53,11 +54,8 @@ dbHelper.prototype.getVisitors = (officelocation) => {
     return new Promise((resolve, reject) => {
         const params = {
             TableName: tableName,
-
             ProjectionExpression: "#officelocation, firstname",
             FilterExpression: "#officelocation = :officelocation",
-
-//            KeyConditionExpression: "#officelocation = :officelocation",
             ExpressionAttributeNames: {
                 "#officelocation": "officelocation"
             },
