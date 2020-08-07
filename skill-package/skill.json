@@ -1,26 +1,5 @@
 {
   "manifest": {
-    "publishingInformation": {
-      "locales": {
-        "en-US": {
-          "summary": "Office Bot",
-          "examplePhrases": [
-            "Alexa open office bot",
-            "office bot",
-            "help"
-          ],
-          "name": "dius-office-bot",
-          "description": "A simple bot to track office visitors as they chck in and out of office locations"
-        }
-      },
-      "isAvailableWorldwide": false,
-      "testingInstructions": "Check In/Out Visitors to an office (no PII, just captures first name only) and do a roll call of current visitors, eg. Alexa, tell office bot to check in Fred to the Sydney office",
-      "category": "ORGANIZERS_AND_ASSISTANTS",
-      "distributionCountries": [
-        "AU",
-        "JP"
-      ]
-    },
     "apis": {
       "custom": {
         "endpoint": {
@@ -28,19 +7,40 @@
         }
       }
     },
+    "manifestVersion": "1.0",
     "privacyAndCompliance": {
       "allowsPurchases": false,
-      "locales": {
-        "en-US": {
-          "termsOfUseUrl": "http://www.dius.com.au",
-          "privacyPolicyUrl": "http://www.dius.com.au"
-        }
-      },
-      "isExportCompliant": true,
       "containsAds": false,
       "isChildDirected": false,
+      "isExportCompliant": true,
+      "locales": {
+        "en-US": {
+          "privacyPolicyUrl": "http://www.dius.com.au",
+          "termsOfUseUrl": "http://www.dius.com.au"
+        }
+      },
       "usesPersonalInfo": false
     },
-    "manifestVersion": "1.0"
+    "publishingInformation": {
+      "category": "ORGANIZERS_AND_ASSISTANTS",
+      "distributionCountries": [
+        "AU",
+        "JP"
+      ],
+      "isAvailableWorldwide": false,
+      "locales": {
+        "en-US": {
+          "description": "A simple bot to track office visitors as they chck in and out of office locations",
+          "examplePhrases": [
+            "Alexa open office bot",
+            "office bot",
+            "help"
+          ],
+          "name": "dius-office-bot",
+          "summary": "Office Bot"
+        }
+      },
+      "testingInstructions": "Check In/Out Visitors to an office (no PII, just captures first name only) and do a roll call of current visitors, eg. Alexa, tell office bot to check in Fred to the Sydney office"
+    }
   }
 }

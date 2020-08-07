@@ -1,233 +1,234 @@
 {
-    "interactionModel": {
-        "languageModel": {
-            "invocationName": "office bot",
-            "intents": [
-                {
-                    "name": "AMAZON.CancelIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.HelpIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.StopIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.NavigateHomeIntent",
-                    "samples": []
-                },
-                {
-                    "name": "CheckIn",
-                    "slots": [
-                        {
-                            "name": "firstname",
-                            "type": "AMAZON.FirstName"
-                        },
-                        {
-                            "name": "officelocation",
-                            "type": "OfficeLocation"
-                        }
-                    ],
-                    "samples": [
-                        "check someone in",
-                        "check in {firstname} to {officelocation}",
-                        "check in {firstname}  as a new visitor to the {officelocation} office",
-                        "check in {firstname}  as a visitor to the {officelocation} office",
-                        "register {firstname}  as a new visitor to the {officelocation} office",
-                        "add {firstname}  as a visitor to the {officelocation} office",
-                        "add {firstname}  as a new visitor to the {officelocation} office",
-                        "record {firstname}  as a visitor to the {officelocation} office",
-                        "Register {firstname} as a visitor to the {officelocation} office"
-                    ]
-                },
-                {
-                    "name": "RollCall",
-                    "slots": [
-                        {
-                            "name": "officelocation",
-                            "type": "OfficeLocation"
-                        }
-                    ],
-                    "samples": [
-                        "do a roll call",
-                        "who is in {officelocation}",
-                        "Who is in the {officelocation} office",
-                        "Do a roll call for the {officelocation} office",
-                        "Who is at the {officelocation} office",
-                        "List Visitors at the {officelocation} office"
-                    ]
-                },
-                {
-                    "name": "CheckOut",
-                    "slots": [
-                        {
-                            "name": "firstname",
-                            "type": "AMAZON.FirstName"
-                        },
-                        {
-                            "name": "officelocation",
-                            "type": "OfficeLocation"
-                        }
-                    ],
-                    "samples": [
-                        "check out {firstname} from the {officelocation} office"
-                    ]
-                }
-            ],
-            "types": [
-                {
-                    "name": "OfficeLocation",
-                    "values": [
-                        {
-                            "name": {
-                                "value": "balmain"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "perth"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "tokyo"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "melbourne"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "Sydney"
-                            }
-                        }
-                    ]
-                }
-            ]
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "office bot",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
         },
-        "dialog": {
-            "intents": [
-                {
-                    "name": "RollCall",
-                    "confirmationRequired": false,
-                    "prompts": {},
-                    "slots": [
-                        {
-                            "name": "officelocation",
-                            "type": "OfficeLocation",
-                            "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.985459713203.360017275953"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "CheckIn",
-                    "delegationStrategy": "ALWAYS",
-                    "confirmationRequired": false,
-                    "prompts": {},
-                    "slots": [
-                        {
-                            "name": "firstname",
-                            "type": "AMAZON.FirstName",
-                            "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.464427742507.1255906079791"
-                            }
-                        },
-                        {
-                            "name": "officelocation",
-                            "type": "OfficeLocation",
-                            "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.464427742507.1097048296281"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "CheckOut",
-                    "confirmationRequired": false,
-                    "prompts": {},
-                    "slots": [
-                        {
-                            "name": "firstname",
-                            "type": "AMAZON.FirstName",
-                            "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.1055073456713.745794971265"
-                            }
-                        },
-                        {
-                            "name": "officelocation",
-                            "type": "OfficeLocation",
-                            "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.1055073456713.570806854027"
-                            }
-                        }
-                    ]
-                }
-            ],
-            "delegationStrategy": "ALWAYS"
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
         },
-        "prompts": [
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "CheckIn",
+          "slots": [
             {
-                "id": "Elicit.Slot.1055073456713.570806854027",
-                "variations": [
-                    {
-                        "type": "PlainText",
-                        "value": "Which office location"
-                    }
-                ]
+              "name": "firstname",
+              "type": "AMAZON.FirstName"
             },
             {
-                "id": "Elicit.Slot.1055073456713.745794971265",
-                "variations": [
-                    {
-                        "type": "PlainText",
-                        "value": "What is the first name of the person"
-                    }
-                ]
-            },
-            {
-                "id": "Elicit.Slot.985459713203.360017275953",
-                "variations": [
-                    {
-                        "type": "PlainText",
-                        "value": "Which office location"
-                    }
-                ]
-            },
-            {
-                "id": "Elicit.Slot.464427742507.1097048296281",
-                "variations": [
-                    {
-                        "type": "PlainText",
-                        "value": "Which office location"
-                    }
-                ]
-            },
-            {
-                "id": "Elicit.Slot.464427742507.1255906079791",
-                "variations": [
-                    {
-                        "type": "PlainText",
-                        "value": "What is the first name of the person"
-                    }
-                ]
+              "name": "officelocation",
+              "type": "OfficeLocation"
             }
+          ],
+          "samples": [
+            "check someone in",
+            "check in {firstname} to {officelocation}",
+            "check in {firstname}  as a new visitor to the {officelocation} office",
+            "check in {firstname}  as a visitor to the {officelocation} office",
+            "register {firstname}  as a new visitor to the {officelocation} office",
+            "add {firstname}  as a visitor to the {officelocation} office",
+            "add {firstname}  as a new visitor to the {officelocation} office",
+            "record {firstname}  as a visitor to the {officelocation} office",
+            "Register {firstname} as a visitor to the {officelocation} office"
+          ]
+        },
+        {
+          "name": "RollCall",
+          "slots": [
+            {
+              "name": "officelocation",
+              "type": "OfficeLocation"
+            }
+          ],
+          "samples": [
+            "do a roll call",
+            "who is in {officelocation}",
+            "Who is in the {officelocation} office",
+            "Do a roll call for the {officelocation} office",
+            "Who is at the {officelocation} office",
+            "List Visitors at the {officelocation} office"
+          ]
+        },
+        {
+          "name": "CheckOut",
+          "slots": [
+            {
+              "name": "firstname",
+              "type": "AMAZON.FirstName"
+            },
+            {
+              "name": "officelocation",
+              "type": "OfficeLocation"
+            }
+          ],
+          "samples": [
+            "check out {firstname} from the {officelocation} office"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "values": [
+            {
+              "name": {
+                "value": "balmain"
+              }
+            },
+            {
+              "name": {
+                "value": "perth"
+              }
+            },
+            {
+              "name": {
+                "value": "tokyo"
+              }
+            },
+            {
+              "name": {
+                "value": "melbourne"
+              }
+            },
+            {
+              "name": {
+                "value": "Sydney"
+              }
+            }
+          ],
+          "name": "OfficeLocation"
+        }
+      ]
+    },
+    "dialog": {
+      "intents": [
+        {
+          "name": "RollCall",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "officelocation",
+              "type": "OfficeLocation",
+              "elicitationRequired": true,
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.985459713203.360017275953"
+              }
+            }
+          ]
+        },
+        {
+          "name": "CheckIn",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "firstname",
+              "type": "AMAZON.FirstName",
+              "elicitationRequired": true,
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.464427742507.1255906079791"
+              }
+            },
+            {
+              "name": "officelocation",
+              "type": "OfficeLocation",
+              "elicitationRequired": true,
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.464427742507.1097048296281"
+              }
+            }
+          ],
+          "delegationStrategy": "ALWAYS"
+        },
+        {
+          "name": "CheckOut",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "firstname",
+              "type": "AMAZON.FirstName",
+              "elicitationRequired": true,
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.1055073456713.745794971265"
+              }
+            },
+            {
+              "name": "officelocation",
+              "type": "OfficeLocation",
+              "elicitationRequired": true,
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.1055073456713.570806854027"
+              }
+            }
+          ]
+        }
+      ],
+      "delegationStrategy": "ALWAYS"
+    },
+    "prompts": [
+      {
+        "id": "Elicit.Slot.1055073456713.570806854027",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Which office location"
+          }
         ]
-    }
+      },
+      {
+        "id": "Elicit.Slot.1055073456713.745794971265",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "What is the first name of the person"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.985459713203.360017275953",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Which office location"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.464427742507.1097048296281",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Which office location"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.464427742507.1255906079791",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "What is the first name of the person"
+          }
+        ]
+      }
+    ]
+  },
+  "version": "5"
 }
