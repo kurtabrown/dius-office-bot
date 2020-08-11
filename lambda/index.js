@@ -28,16 +28,16 @@ const CheckInIntentHandler = {
         const officelocation = handlerInput.requestEnvelope.request.intent.slots.officelocation.value;
         return dbHelper.addVisitor(firstname, officelocation)
             .then((data) => {
-            const speechText = 'Check In ' + firstname + ' as a new visitor to the ' + officelocation + ' office';
+            const speechText = `Check In ${firstname} as a new visitor to the ${officelocation} office`;
             console.log('Speak ' + speechText);
-            return handlerInput.responseBuilder
+             return handlerInput.responseBuilder
                 .speak(speechText)
                 .getResponse();
           })
         .catch((err) => {
             console.log("Error occured while saving visitor", err);
-            const speechText = "we cannot check in your visitor right now. Try again!"
-            return responseBuilder
+            const speechText = "Sorry, we cannot check in your visitor right now. Try again!"
+            return handlerInput.responseBuilder
                 .speak(speechText)
                 .getResponse();
         })
@@ -52,20 +52,34 @@ const CheckOutIntentHandler = {
         console.log('Inside CheckOutHandler');
         var firstname = handlerInput.requestEnvelope.request.intent.slots.firstname.value;
         var officelocation = handlerInput.requestEnvelope.request.intent.slots.officelocation.value;
-
-        return dbHelper.removeVisitor(firstname, officelocation)
+        return dbHelper.removeVisitorFromOffice(firstname, officelocation)
             .then((data) => {
-            const speechText = `You have checked out ${firstname}`
+            const speechText = `You have checked out ${firstname} from the ${officelocation} office`
             return handlerInput.responseBuilder
                 .speak(speechText)
                 .getResponse();
         })
         .catch((err) => {
-            const speechText = `You do not have a visitor with name ${firstname}`
-            return responseBuilder
+            const speechText = `You do not have a visitor with name ${firstname} in the ${officelocation} office`
+            return handlerInput.responseBuilder
                 .speak(speechText)
                 .getResponse();
         })
+    }
+};
+const ClearAllVisitorsIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'ClearAllVisitors';
+    },
+    handle(handlerInput) {
+        console.log('Inside ClearAllVisitorsHandler');
+        var officelocation = handlerInput.requestEnvelope.request.intent.slots.officelocation.value;
+        dbHelper.removeAllVisitorsFromOffice(officelocation);
+        var speechText = `Checked out all visitors to the ${officelocation} office`;
+        return handlerInput.responseBuilder
+            .speak(speechText)
+            .getResponse();
     }
 };
 const RollCallIntentHandler = {
@@ -79,9 +93,9 @@ const RollCallIntentHandler = {
 
         return dbHelper.getVisitors(officelocation)
              .then((data) => {
-            var speechText = "Visitors to the " + officelocation + " are ";
+            var speechText = `Visitors to the ${officelocation} office are `;
             if (data.length == 0) {
-                speechText = "You do not have any visitors right now ";
+                speechText = `There are no visitors in the ${officelocation} office`;
             } else {
                 speechText += data.map(e => e.firstname).join(", ");
             }
@@ -91,7 +105,7 @@ const RollCallIntentHandler = {
         })
         .catch((err) => {
             console.log(err);
-            const speechText = "we cannot do a roll call right now. Try again!";
+            const speechText = `Sorry, we cannot do a roll call right now. Try again!`;
             return handlerInput.responseBuilder
                 .speak(speechText)
                 .getResponse();
@@ -178,9 +192,10 @@ const ErrorHandler = {
 exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
-        CheckInIntentHandler,
         CheckOutIntentHandler,
+        CheckInIntentHandler,
         RollCallIntentHandler,
+        ClearAllVisitorsIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         SessionEndedRequestHandler,

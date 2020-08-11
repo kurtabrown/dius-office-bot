@@ -19,34 +19,9 @@ dbHelper.prototype.addVisitor = (firstname, officelocation) => {
                 console.log("Unable to insert =>", JSON.stringify(err))
                 return reject("Unable to insert");
             }
-            console.log("Saved Data, ", JSON.stringify(data));
+            console.log("addVisitor succeeded:", JSON.stringify(data));
             resolve(data);
         });
-    });
-}
-
-dbHelper.prototype.getVisitor = (firstname) => {
-    return new Promise((resolve, reject) => {
-        const params = {
-            TableName: tableName,
-            ProjectionExpression: "#officelocation, firstname",
-            FilterExpression: "#firstname = :firstname",
-            ExpressionAttributeNames: {
-                "#firstname": "firstname"
-            },
-            ExpressionAttributeValues: {
-                ":firstname": firstname
-            }
-        }
-        docClient.scan(params, (err, data) => {
-            if (err) {
-                console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
-                return reject(JSON.stringify(err, null, 2))
-            } 
-            console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
-            resolve(data.Items)
-            
-        })
     });
 }
 
@@ -68,14 +43,54 @@ dbHelper.prototype.getVisitors = (officelocation) => {
                 console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
                 return reject(JSON.stringify(err, null, 2))
             } 
-            console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
+            console.log("getVisitors succeeded:", JSON.stringify(data, null, 2));
             resolve(data.Items)
             
         })
     });
 }
 
-dbHelper.prototype.removeVisitor = (firstname, officelocation) => {
+dbHelper.prototype.removeAllVisitorsFromOffice = (officelocation) => { 
+    console.log('Inside removeVisitors');
+    const scanParams = {
+        TableName: tableName,
+        ProjectionExpression: "#officelocation, firstname",
+        FilterExpression: "#officelocation = :officelocation",
+        ExpressionAttributeNames: {
+            "#officelocation": "officelocation"
+        },
+        ExpressionAttributeValues: {
+            ":officelocation": officelocation
+        }
+    }
+    docClient.scan(scanParams, (err, data) => {
+        if (err) {
+            console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
+            return reject(JSON.stringify(err, null, 2))
+        } 
+        else {
+            data.Items.forEach(function(obj,i){
+                var params = {
+                    TableName: tableName,
+                    Key: {
+                        "officelocation": officelocation,
+                        "firstname": obj.firstname
+                    },
+                };
+                docClient.delete(params, function(del_err, del_data) {
+                    if (del_err) {
+                        console.error("Error deleting item. Error JSON:", JSON.stringify(del_err, null, 2));
+                    }
+                    else {
+                        console.log("removeAllVisitorsFromOffice succeeded:", JSON.stringify(del_data, null, 2));
+                    }
+                });
+            });
+        }
+    });
+}
+
+dbHelper.prototype.removeVisitorFromOffice = (firstname, officelocation) => {
     return new Promise((resolve, reject) => {
         const params = {
             TableName: tableName,
@@ -83,18 +98,27 @@ dbHelper.prototype.removeVisitor = (firstname, officelocation) => {
                 "officelocation": officelocation,
                 "firstname": firstname
             },
-            ConditionExpression: "attribute_exists(officelocation)"
         }
         docClient.delete(params, function (err, data) {
             if (err) {
                 console.error("Unable to delete item. Error JSON:", JSON.stringify(err, null, 2));
                 return reject(JSON.stringify(err, null, 2))
             }
-            console.log(JSON.stringify(err));
-            console.log("DeleteItem succeeded:", JSON.stringify(data, null, 2));
+            console.log("removeVisitorFromOffice succeeded:", JSON.stringify(data, null, 2));
             resolve()
         })
     });
 }
 
+function buildKey(obj){
+    var hashKey = "id";
+    var rangeKey = null;
+    var key = {};
+    key[hashKey] = obj[hashKey]
+    if(rangeKey){
+        key[rangeKey] = obj[rangeKey];
+    }
+    return key;
+}
+ 
 module.exports = new dbHelper();

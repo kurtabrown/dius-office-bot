@@ -20,6 +20,27 @@
           "samples": []
         },
         {
+          "name": "CheckOut",
+          "slots": [
+            {
+              "name": "firstname",
+              "type": "AMAZON.FirstName"
+            },
+            {
+              "name": "officelocation",
+              "type": "OfficeLocation"
+            }
+          ],
+          "samples": [
+            "remove {firstname} from {officelocation}",
+            "remove {firstname} from the {officelocation} office",
+            "check out",
+            "check out {firstname}",
+            "check out {firstname} from {officelocation}",
+            "check out {firstname} from the {officelocation} office"
+          ]
+        },
+        {
           "name": "CheckIn",
           "slots": [
             {
@@ -32,14 +53,15 @@
             }
           ],
           "samples": [
-            "check someone in",
+            "check in",
+            "check in {firstname}",
             "check in {firstname} to {officelocation}",
-            "check in {firstname}  as a new visitor to the {officelocation} office",
-            "check in {firstname}  as a visitor to the {officelocation} office",
-            "register {firstname}  as a new visitor to the {officelocation} office",
-            "add {firstname}  as a visitor to the {officelocation} office",
-            "add {firstname}  as a new visitor to the {officelocation} office",
-            "record {firstname}  as a visitor to the {officelocation} office",
+            "check in {firstname} as a new visitor to the {officelocation} office",
+            "check in {firstname} as a visitor to the {officelocation} office",
+            "register {firstname} as a new visitor to the {officelocation} office",
+            "add {firstname} as a visitor to the {officelocation} office",
+            "add {firstname} as a new visitor to the {officelocation} office",
+            "record {firstname} as a visitor to the {officelocation} office",
             "Register {firstname} as a visitor to the {officelocation} office"
           ]
         },
@@ -61,19 +83,20 @@
           ]
         },
         {
-          "name": "CheckOut",
+          "name": "ClearAllVisitors",
           "slots": [
-            {
-              "name": "firstname",
-              "type": "AMAZON.FirstName"
-            },
             {
               "name": "officelocation",
               "type": "OfficeLocation"
             }
           ],
           "samples": [
-            "check out {firstname} from the {officelocation} office"
+            "check out all visitors from the {officelocation} office",
+            "check out all visitors from {officelocation}",
+            "check out all visitors",
+            "remove all visitors from the {officelocation} office",
+            "remove all visitors from {officelocation}",
+            "remove all visitors"
           ]
         }
       ],
@@ -174,7 +197,23 @@
               "elicitationRequired": true,
               "confirmationRequired": false,
               "prompts": {
-                "elicitation": "Elicit.Slot.1055073456713.570806854027"
+                "elicitation": "Elicit.Slot.840160708724.1325115657717"
+              }
+            }
+          ]
+        },
+        {
+          "name": "ClearAllVisitors",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "officelocation",
+              "type": "OfficeLocation",
+              "elicitationRequired": true,
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.972034317363.54226180562"
               }
             }
           ]
@@ -183,15 +222,6 @@
       "delegationStrategy": "ALWAYS"
     },
     "prompts": [
-      {
-        "id": "Elicit.Slot.1055073456713.570806854027",
-        "variations": [
-          {
-            "type": "PlainText",
-            "value": "Which office location"
-          }
-        ]
-      },
       {
         "id": "Elicit.Slot.1055073456713.745794971265",
         "variations": [
@@ -227,8 +257,26 @@
             "value": "What is the first name of the person"
           }
         ]
+      },
+      {
+        "id": "Elicit.Slot.972034317363.54226180562",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Which office location"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.840160708724.1325115657717",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Which Office Location"
+          }
+        ]
       }
     ]
   },
-  "version": "5"
+  "version": "11"
 }
