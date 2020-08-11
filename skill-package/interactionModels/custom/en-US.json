@@ -91,6 +91,7 @@
             }
           ],
           "samples": [
+            "delete all visitors",
             "check out all visitors from the {officelocation} office",
             "check out all visitors from {officelocation}",
             "check out all visitors",
